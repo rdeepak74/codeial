@@ -1,0 +1,19 @@
+#headerContainer{
+    color: whitesmoke;
+    background-color: lightblue;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#header-sign-container{
+    list-style-type: none;
+    width: 15%;
+    display: flex;
+    justify-content: space-around;
+}
+
+#header-sign-container a{
+    color: whitesmoke;
+    text-decoration: none;
+}

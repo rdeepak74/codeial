@@ -2,8 +2,25 @@
     <h1>View <%=title%> </h1>
     <section id="feed-post">
         <h4>Posts</h4>
-        <form action="" id="new-post-form" method="POST">
+        <% if (locals.user){%>
+        <form action="/post/create" id="new-post-form" method="POST">
             <textarea name="content" id="content" cols="30" rows="10" placeholder="Type here...."></textarea>
             <input type="submit" value="Post">
         </form>
+        <%}%>
     </section>
+
+    <ul>
+        <% for(let i of posts){%>
+
+            <li>
+                <p>
+                    <%=i.content%>
+                    <br>
+                    <%=i.user.name%> 
+                </p>
+                
+            </li>
+
+        <%}%>
+    </ul>
