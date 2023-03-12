@@ -4,23 +4,16 @@
         <h4>Posts</h4>
         <% if (locals.user){%>
         <form action="/post/create" id="new-post-form" method="POST">
-            <textarea name="content" id="content" cols="30" rows="10" placeholder="Type here...."></textarea>
+            <textarea name="content" id="content" cols="30" rows="10" placeholder="Type here...." required></textarea>
             <input type="submit" value="Post">
         </form>
         <%}%>
     </section>
 
     <ul>
-        <% for(let i of posts){%>
+        <% for( i of posts){%>
 
-            <li>
-                <p>
-                    <%=i.content%>
-                    <br>
-                    <%=i.user.name%> 
-                </p>
-                
-            </li>
+            <%- include('_post'); %>
 
         <%}%>
     </ul>
