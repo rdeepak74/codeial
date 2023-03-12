@@ -2,4 +2,6 @@ body {
   margin: 0;
   /* text-align: center; */ }
   body #layout-main {
-    height: 100vh; }
+    height: auto;
+    min-height: 100vh;
+    margin-top: 3%; }

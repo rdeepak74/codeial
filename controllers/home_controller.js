@@ -1,4 +1,5 @@
 const Post= require('../models/post');
+const User = require('../models/user');
 module.exports.home= async function(req,res){
     // console.log(req.cookies);
     // Populate the each post
@@ -9,10 +10,11 @@ module.exports.home= async function(req,res){
                 path:'user'
             }
         });
-
+        const userview = await User.find();
         return res.render('home',{
             title:"Home",
-            posts: postview
+            posts: postview,
+            all_users:userview
         });
     }catch(err){
         console.log(err+"Error gets")

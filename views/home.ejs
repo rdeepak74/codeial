@@ -1,19 +1,33 @@
+<link rel="stylesheet" href="/css/home.css">
 
-    <h1>View <%=title%> </h1>
-    <section id="feed-post">
+<div id="home-container">
+    <section id="feed-posts">
         <h4>Posts</h4>
-        <% if (locals.user){%>
+        <% if(locals.user){ %>
         <form action="/post/create" id="new-post-form" method="POST">
-            <textarea name="content" id="content" cols="30" rows="10" placeholder="Type here...." required></textarea>
+            <textarea name="content" cols="30" rows="3" placeholder="Type Here..." required></textarea>
             <input type="submit" value="Post">
         </form>
-        <%}%>
+        <% } %>
+    
+        <div id="posts-list-container">
+            <ul>
+                <% for(i of posts){ %>
+                    
+                <%- include('_post') -%>
+                    
+                <%} %>
+            </ul>
+        </div>
     </section>
-
-    <ul>
-        <% for( i of posts){%>
-
-            <%- include('_post'); %>
-
-        <%}%>
-    </ul>
+    
+    
+    <section id="user-friends">
+        <h4>Friends</h4>
+        <% for(u of all_users){%>
+            <p>
+                <a href="/users/profile/<%= u.id %>"><%= u.name %></a>
+            </p>
+        <% } %>
+    </section>
+</div>
