@@ -4,7 +4,10 @@ module.exports.home= async function(req,res){
     // console.log(req.cookies);
     // Populate the each post
     try{
-        const postview = await Post.find().populate('user').populate({
+        const postview = await Post.find()
+        .sort('-createdAt')
+        .populate('user')
+        .populate({
             path:'comment',
             populate:{
                 path:'user'

@@ -13,6 +13,14 @@ module.exports.create =async function(req,res){
             })
             PostId.comment.push(CommentSubmit);
             PostId.save();  
+            if(req.xhr){
+                return res.status(200).json({
+                    data:{
+                        comment:CommentSubmit
+                    },
+                    message:"Comment Created"
+                })
+            }
             res.redirect('/');  
         }
 
@@ -30,6 +38,15 @@ module.exports.delete= async function(req,res){
             let postid = commentdelete.post;
             commentdelete.remove();
             const postdelete= await Post.findByIdAndUpdate(postid,{$pull:{comment:req.params.id}});
+
+            if(req.xhr){
+                return res.status(200).json({
+                    data:{
+                        comment_id:req.params.id
+                    },
+                    message:"Comment deleted"
+                })
+            }
             return res.redirect('/');
         }else{
             return res.redirect('/');
