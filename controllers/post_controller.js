@@ -3,19 +3,31 @@ const Comment = require('../models/comment');
 module.exports.create =async function(req,res){
     
     try{
-        const Post = await Postdb.create({
+        let Post = await Postdb.create({
             content:req.body.content,
             user: req.user._id
         });
-        const postview = await Postdb.findById(req.user._id)
-        .sort('-createdAt')
-        .populate('user')
-        ;
+        // const postview = await Postdb.find()
+        // .sort('-createdAt')
+        // .populate('user')
+        // .populate({
+        //     path:'comment',
+        //     populate:{
+        //         path:'user'
+        //     }
+        // });
         if(req.xhr){
+            // try{
+                Post = await Post.populate('user');
+            // }catch(err){
+            //     console.log('error', err);
+            //     return;
+            // }
+            
             return res.status(200).json({
                 data:{
-                    post:Post,
-                    PostUser: postview
+                    post:Post
+                    // postview:postview
                 },
                 message: "Post created"
             })

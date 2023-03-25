@@ -29,12 +29,17 @@ module.exports.update = async function(req,res){
                     userupdate.email=req.body.email;
 
                     if(req.file){
-
+                        const filepresent= path.join(__dirname,'..',userupdate.avatar);
                         if(userupdate.avatar){
-                            fs.unlinkSync(path.join(__dirname,'..',userupdate.avatar));
-                        }
+                            
+                            if(fs.existsSync(filepresent)){
 
-                        userupdate.avatar=User.avatarPath + '/' + req.file.filename;
+                                fs.unlinkSync(filepresent);
+
+                            }  
+                        }
+                        userupdate.avatar=User.avatarPath + '/' + req.file.filename; 
+
                     }
                     userupdate.save();
                     return res.redirect('/');
