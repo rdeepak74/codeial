@@ -12,7 +12,7 @@ passport.use(new googleStrategy({
         function(accessToken, refreshToken,profile,done){
 
             //find a user
-            User.findById({email:profile.emails[0].value}).exec(function(err,user){
+            User.findOne({email:profile.emails[0].value}).exec(function(err,user){
                 if(err){
                     console.log('error in google strategy-passport',err);
                     return;
@@ -29,7 +29,7 @@ passport.use(new googleStrategy({
                     User.create({
                         name: profile.displayName,
                         email: profile.emails[0].value,
-                        passwort: crypto.randomBytes(20).toString('hex')
+                        password: crypto.randomBytes(20).toString('hex')
                     }, function(err,user){
                         if(err){
                             console.log('error in google strategy-passport',err);
