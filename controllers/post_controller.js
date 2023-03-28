@@ -18,7 +18,7 @@ module.exports.create =async function(req,res){
         // });
         if(req.xhr){
             // try{
-                Post = await Post.populate('user');
+                Post = await Post.populate('user','name');
             // }catch(err){
             //     console.log('error', err);
             //     return;
