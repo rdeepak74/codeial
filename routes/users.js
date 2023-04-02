@@ -7,10 +7,10 @@ const userController=require('../controllers/users_controller');
 router.get('/profile/:id', passport.checkAuthentication, userController.profile);
 router.post('/update/:id', passport.checkAuthentication, userController.update);
 router.get('/sign-up',userController.signUp);
-router.get('/sign-in',userController.signIn);
-router.get('/forgot-password',userController.forgotPassword);
-router.post('/reset-password',userController.resetPasswordMail);
-router.get('/reset-password-token/:token',userController.resetPasswordTokken);
+// router.get('/sign-in',userController.signIn);
+// router.get('/forgot-password',userController.forgotPassword);
+// router.post('/reset-password',userController.resetPasswordMail);
+// router.get('/reset-password-token/:token',userController.resetPasswordTokken);
 router.post('/create',userController.create);
 router.post('/create-session',passport.authenticate(
     'local',
