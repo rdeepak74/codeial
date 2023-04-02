@@ -11,8 +11,12 @@ module.exports.home= async function(req,res){
             path:'comment',
             populate:{
                 path:'user'
+            },
+            populate: {
+                path: 'likes'
             }
-        });
+        }).populate('comment')
+        .populate('likes');;
         const userview = await User.find();
         return res.render('home',{
             title:"Home",

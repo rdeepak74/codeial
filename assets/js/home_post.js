@@ -14,6 +14,10 @@
                     let newPost = newPostDom(data.data.post);
                     $('#posts-list-container>ul').prepend(newPost);
                     deletePost(' .delete-post-button', newPost);
+
+                    // CHANGE :: enable the functionality of the toggle like button on the new comment
+                    new ToggleLike($(' .toggle-like-button', newPost));
+
                     new Noty({
                         theme: 'relax',
                         text: "Post Pulblished",
@@ -42,6 +46,14 @@
                         ${post.content}
                         <br>
                          ${post.user.name}
+                         <br>
+                        <small>
+                            
+                                <a class="toggle-like-button" data-likes="0" href="/likes/toggle/?id=${post._id}&type=Post">
+                                    0 Likes
+                                </a>
+                            
+                        </small>
                     </p>
                     <div id="comment-div">
                         
@@ -103,6 +115,9 @@
                     let newComment = newCommentDom(data.data.comment);
                     $('#post-comment-list>ul').prepend(newComment);
                     deleteComment(' .delete-comment-button', newComment);
+
+                    // CHANGE :: enable the functionality of the toggle like button on the new post
+                    new ToggleLike($(' .toggle-like-button', newComment));
                     new Noty({
                         theme: 'relax',
                         text: "Comment Pulblished",
@@ -126,8 +141,15 @@
                     <a class="delete-comment-button" href="/comment/delete/${comment._id}">X</a>
                 </small>
                
-            ${ comment.content}
-            ${ comment.user.name}
+            ${ comment.content}<br>
+            ${ comment.user.name}<br>
+            <small>
+                            
+            <a class="toggle-like-button" data-likes="0" href="/likes/toggle/?id=${comment._id}&type=Comment">
+                0 Likes
+            </a>
+        
+        </small>
         </p>
     </li>`)
    }
