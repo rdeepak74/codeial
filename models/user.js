@@ -21,6 +21,12 @@ const userSchema = new mongoose.Schema({
     },
     avatar:{
         type:String
+    },
+    resetToken:{
+        type:String
+    },
+    resetTokenExpiration:{
+        type:Date
     }
 },{
     timestamps: true

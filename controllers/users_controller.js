@@ -1,7 +1,8 @@
 const User = require('../models/user');
 const fs = require('fs');
 const path = require('path');
-
+const jwt= require('jsonwebtoken');
+const forgotMailer = require('../mailers/forgotpassword_mailer');
 module.exports.profile = async function(req,res){
     try{
         const userview = await User.findById(req.params.id);
@@ -89,7 +90,6 @@ module.exports.signUp = function(req,res){
     });
 }
 
-
 //get the sign in data
 
 module.exports.create =function(req,res){
@@ -132,4 +132,45 @@ module.exports.destroySession = function(req,res){
     // req.logout();
     req.flash('success','You have logged out');
     return res.redirect('/');
+}
+
+
+// Forgot password
+module.exports.forgotPassword=function(req,res){
+    return res.render('user_forgot_password',{
+        title: "Forgot Password"
+    });
+}
+
+module.exports.resetPasswordMail= async function(req,res){
+    
+    const emailbody = req.body.email;
+
+    let userdata= await User.findOne({email:emailbody});
+
+    if(!userdata){
+        return res.status(400).send('Email not found');
+    }
+
+    const resetToken = jwt.sign({email:userdata.email},'codeial',{expiresIn:'1h'});
+    userdata.resetToken=resetToken;
+    userdata.resetTokenExpiration=Date.now() + 3600000;//Token will expires in 1 hour
+   await userdata.save();
+    try{
+    userdata= await userdata.populate();
+    forgotMailer.forgotPasswordMail(userdata);
+    //    console.log("User Date :----",userdata)
+       return res.redirect('/users/sign-in');
+    }catch(err){
+        console.log("Error.....", err);
+        return res.redirect('/users/sign-in');
+    }
+
+//     
+}
+
+module.exports.resetPasswordTokken= function(req,res){
+    return res.render('user_forgot_password_token',{
+        title: "Reset Password"
+    });
 }
