@@ -4,7 +4,6 @@
   padding: 5px 10px;
   display: flex;
   justify-content: flex-start;
-  position: sticky;
   bottom: 0; }
   #layout-footer a {
     color: white;
